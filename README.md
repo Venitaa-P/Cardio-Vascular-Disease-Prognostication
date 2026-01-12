@@ -19,7 +19,7 @@
 - **Recall**: 0.88
 - **F1 Score**: 0.90
 - **MCC**: 0.81
-- **Training Time**: 0.01s
+- **Training Time**: 0.006s
 
 
 ### Logistic Regression
@@ -29,7 +29,7 @@
 - **Recall**: 0.91
 - **F1 Score**: 0.89
 - **MCC**: 0.77
-- **Training Time**: 0.04s
+- **Training Time**: 0.002s
 
 ### Random Forest
 - **Accuracy**: 90.16%
@@ -59,4 +59,5 @@
 - **F1 Score**: 0.92
 - **MCC**: 0.84
 - **Training Time**: 0.00s
+
 
