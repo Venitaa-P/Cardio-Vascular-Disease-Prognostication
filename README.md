@@ -9,12 +9,7 @@
 | XGBoost             |   0.868852 |  0.912716 |    0.9      |  0.84375 | 0.870968 | 0.739505 |          0.0526755  |
 | KNN                 |   0.918033 |  0.95528  |    0.935484 |  0.90625 | 0.920635 | 0.836384 |          0.00107217 |
 
-## Key Visualizations
-### ROC Curves Comparison
-![ROC Curves](results/roc_curves.png)
 
-### Feature Importance
-![Feature Importance](results/feature_importance.png)
 
 ## Detailed Metrics
 ### SVM
@@ -26,11 +21,6 @@
 - **MCC**: 0.81
 - **Training Time**: 0.01s
 
-#### Confusion Matrix
-![SVM CM](results/confusion_matrix_svm.png)
-
-#### Precision-Recall Curve
-![SVM PR](results/pr_curve_svm.png)
 
 ### Logistic Regression
 - **Accuracy**: 88.52%
@@ -39,13 +29,7 @@
 - **Recall**: 0.91
 - **F1 Score**: 0.89
 - **MCC**: 0.77
-- **Training Time**: 0.00s
-
-#### Confusion Matrix
-![Logistic Regression CM](results/confusion_matrix_logistic_regression.png)
-
-#### Precision-Recall Curve
-![Logistic Regression PR](results/pr_curve_logistic_regression.png)
+- **Training Time**: 0.04s
 
 ### Random Forest
 - **Accuracy**: 90.16%
@@ -56,11 +40,6 @@
 - **MCC**: 0.81
 - **Training Time**: 0.08s
 
-#### Confusion Matrix
-![Random Forest CM](results/confusion_matrix_random_forest.png)
-
-#### Precision-Recall Curve
-![Random Forest PR](results/pr_curve_random_forest.png)
 
 ### XGBoost
 - **Accuracy**: 86.89%
@@ -71,11 +50,6 @@
 - **MCC**: 0.74
 - **Training Time**: 0.05s
 
-#### Confusion Matrix
-![XGBoost CM](results/confusion_matrix_xgboost.png)
-
-#### Precision-Recall Curve
-![XGBoost PR](results/pr_curve_xgboost.png)
 
 ### KNN
 - **Accuracy**: 91.80%
@@ -85,10 +59,4 @@
 - **F1 Score**: 0.92
 - **MCC**: 0.84
 - **Training Time**: 0.00s
-
-#### Confusion Matrix
-![KNN CM](results/confusion_matrix_knn.png)
-
-#### Precision-Recall Curve
-![KNN PR](results/pr_curve_knn.png)
 
