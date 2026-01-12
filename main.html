@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Heart Disease Prediction</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="static/main.css">
+
+  <!-- FontAwesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        integrity="sha512-pO1G6+7M9f1ZmKka7q9pK5V1u+h6FJ7B+CV/8z9g+7rFX2uvWkFr0Fv+0jxFZK8M7F1Lp+X7rW9P/J1kHfK7Dw==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <!-- Header & Navigation -->
+  <header>
+    <nav>
+    <ul>
+        {% if session.user %}
+            <li><a href="/main">Home</a></li>
+            <li><a href="/chatbot">predict and AI Advisor</a></li>   <!-- Add this line -->
+            <li><a href="/about">About</a></li>
+            
+            <li><a href="/logout">Logout</a></li>
+        {% else %}
+            <li><a href="/signin">Sign In</a></li>
+        {% endif %}
+    </ul>
+</nav>
+  </header>
+
+  <!-- Title Section -->
+  <section class="titles text-center">
+    <h1>CARDIOVASCULAR DISEASE PROGNOSTICATOR</h1>
+    <p>Use our intelligent system to assess your heart disease risk in seconds.</p>
+  </section>
+
+  <!-- Info Boxes Section -->
+  <section class="container-boxes d-flex justify-content-around flex-wrap">
+    <!-- Box 1 -->
+    <div class="box text-center p-3 m-2 shadow-sm">
+      <div class="icon mb-2">
+        <i class="fas fa-fire fa-2x"></i>
+      </div>
+      <div class="text">
+        <h3>How It Works</h3>
+        <p>Enter health data like age, blood pressure, and cholesterol. Our ML model analyzes it instantly.</p>
+      </div>
+    </div>
+
+    <!-- Box 2 -->
+    <div class="box text-center p-3 m-2 shadow-sm">
+      <div class="icon mb-2">
+        <i class="fas fa-seedling fa-2x"></i>
+      </div>
+      <div class="text">
+        <h3>About the Model</h3>
+        <p>Trained on real medical data using Random Forest to ensure high accuracy and reliability.</p>
+      </div>
+    </div>
+
+    <!-- Box 3 -->
+    <div class="box text-center p-3 m-2 shadow-sm">
+      <div class="icon mb-2">
+        <i class="fas fa-address-card fa-2x"></i>
+      </div>
+      <div class="text">
+        <h3>Start Prediction</h3>
+        <p>Ready to try it? Click Predict to access the prediction form and get results fast.</p>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

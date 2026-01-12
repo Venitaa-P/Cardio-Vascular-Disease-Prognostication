@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Heart Disease Prediction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-image: url('static/29135.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .auth-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            margin: 50px auto;
+        }
+        .auth-title {
+            font-size: 32px;
+            color: white;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            color: black;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: white;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.3s;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        .form-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+        }
+        .auth-switch a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+        header {
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+        nav li {
+            margin: 0 1.5rem;
+        }
+        nav a {
+            color: white;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+        nav a:hover {
+            color: #3498db;
+        }
+        .error-message {
+            color: #e74c3c;
+            background-color: rgba(231, 76, 60, 0.1);
+            border: 1px solid #e74c3c;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            .auth-container {
+                margin: 20px auto;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay w-full flex flex-col items-center">
+        <header>
+            <nav>
+    <ul>
+        {% if session.user %}
+            <li><a href="/main">Home</a></li>
+            <li><a href="/chatbot">predict and AI Advisor</a></li>   <!-- Add this line -->
+            <li><a href="/about">About</a></li>
+        
+            <li><a href="/logout">Logout</a></li>
+        {% else %}
+            <li><a href="/signin">Sign In</a></li>
+        {% endif %}
+    </ul>
+</nav>
+        </header>
+
+        <!-- Sign In Form -->
+        <div class="auth-container">
+            <h1 class="auth-title">Sign In</h1>
+            
+            <div id="error-message" class="error-message">
+                <!-- Error messages will appear here -->
+            </div>
+            
+            <form id="signin-form">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" class="form-input" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" class="form-input" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            
+            <div class="auth-switch">
+                Don't have an account? <a href="#" id="show-signup">Sign Up</a>
+            </div>
+        </div>
+
+        <!-- Sign Up Form (Initially Hidden) -->
+        <div class="auth-container" id="signup-container" style="display: none;">
+            <h1 class="auth-title">Create Account</h1>
+            
+            <div id="signup-error-message" class="error-message">
+                <!-- Error messages will appear here -->
+            </div>
+            
+            <form id="signup-form">
+                <div class="form-group">
+                    <label class="form-label" for="fullname">Full Name</label>
+                    <input type="text" class="form-input" id="fullname" name="fullname" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="signup-email">Email</label>
+                    <input type="email" class="form-input" id="signup-email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="signup-password">Password</label>
+                    <input type="password" class="form-input" id="signup-password" name="password" required minlength="6">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="confirm-password">Confirm Password</label>
+                    <input type="password" class="form-input" id="confirm-password" name="confirm-password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+            
+            <div class="auth-switch">
+                Already have an account? <a href="#" id="show-signin">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Toggle between Sign In and Sign Up forms
+    document.getElementById('show-signup').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('.auth-container').style.display = 'none';
+        document.getElementById('signup-container').style.display = 'block';
+    });
+
+    document.getElementById('show-signin').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('signup-container').style.display = 'none';
+        document.querySelector('.auth-container').style.display = 'block';
+    });
+
+    // Sign In Form Handler
+    document.getElementById('signin-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const errorElement = document.getElementById('error-message');
+        
+        // Simple validation
+        if (!email || !password) {
+            showError(errorElement, 'Please fill in all fields');
+            return;
+        }
+        
+        // Send login request to Flask
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '/main';
+            } else {
+                showError(errorElement, data.message);
+            }
+        })
+        .catch(error => {
+            showError(errorElement, 'An error occurred. Please try again.');
+        });
+    });
+
+    // Sign Up Form Handler
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const fullname = document.getElementById('fullname').value;
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const errorElement = document.getElementById('signup-error-message');
+        
+        // Validation
+        if (!fullname || !email || !password || !confirmPassword) {
+            showError(errorElement, 'Please fill in all fields');
+            return;
+        }
+        
+        if (password !== confirmPassword) {
+            showError(errorElement, 'Passwords do not match');
+            return;
+        }
+        
+        if (password.length < 6) {
+            showError(errorElement, 'Password must be at least 6 characters long');
+            return;
+        }
+        
+        // Send registration request to Flask
+        fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `fullname=${encodeURIComponent(fullname)}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '/main';
+            } else {
+                showError(errorElement, data.message);
+            }
+        })
+        .catch(error => {
+            showError(errorElement, 'An error occurred. Please try again.');
+        });
+    });
+
+    // Helper function to show error messages
+    function showError(element, message) {
+        element.textContent = message;
+        element.style.display = 'block';
+        setTimeout(() => {
+            element.style.display = 'none';
+        }, 5000);
+    }
+
+    // Remove any localStorage checks that might cause redirect loops
+    // Check if user is already logged in (server-side session will handle this)
+    window.addEventListener('DOMContentLoaded', () => {
+        // Clear any client-side storage that might interfere
+        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
+    });
+</script>
+</body>
+</html>

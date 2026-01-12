@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Insights</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    
+    <!-- Link to Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Link to your CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+
+
+
+    
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          integrity="sha512-pO1G6+7M9f1ZmKka7q9pK5V1u+h6FJ7B+CV/8z9g+7rFX2uvWkFr0Fv+0jxFZK8M7F1Lp+X7rW9P/J1kHfK7Dw==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Background */
+        .bg-custom {
+            background: url('static/29135.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+        /* Lightbox styling */
+        .lightbox {
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="bg-custom min-h-screen flex flex-col items-center p-5 font-sans">
+
+    <!-- Header & Nav -->
+   <header>
+    <nav>
+    <ul>
+        {% if session.user %}
+            <li><a href="/main">Home</a></li>
+            <li><a href="/chatbot">predict and AI Advisor</a></li>   <!-- Add this line -->
+            <li><a href="/about">About</a></li>
+            <li><a href="/model_insights">Model Insights</a></li>
+            <li><a href="/logout">Logout</a></li>
+        {% else %}
+            <li><a href="/signin">Sign In</a></li>
+        {% endif %}
+    </ul>
+</nav>
+  </header>
+
+    <!-- Main Content -->
+    <main class="w-full max-w-5xl space-y-8 bg-white p-8 rounded-xl shadow-2xl">
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-6">Model Performance Insights</h1>
+        <p class="text-center text-gray-600 mb-10">Explore key metrics and visualizations used to evaluate the Random Forest Model.</p>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap justify-center space-x-3 mb-8">
+            <button onclick="filterImages('all', event)" class="filter-btn py-2 px-4 rounded-full bg-rose-500 text-white font-semibold shadow-md">All Charts</button>
+            <button onclick="filterImages('performance', event)" class="filter-btn py-2 px-4 rounded-full bg-gray-200 text-gray-700 font-semibold">Core Performance</button>
+            <button onclick="filterImages('metrics', event)" class="filter-btn py-2 px-4 rounded-full bg-gray-200 text-gray-700 font-semibold">Metrics & Feature Importance</button>
+        </div>
+
+        <!-- Gallery -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Example Gallery Item -->
+            <div class="gallery-item bg-gray-50 rounded-xl shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transform hover:scale-[1.03] transition duration-500" data-category="performance" onclick="openLightbox('static/Confusion Matrix.png')">
+                <img src="static/Confusion Matrix.png" alt="Confusion Matrix" class="w-full h-48 object-cover object-center">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg text-gray-800">Confusion Matrix</h3>
+                    <p class="text-sm text-gray-500">Shows correct and incorrect predictions.</p>
+                </div>
+            </div>
+            <!-- Add remaining items similarly -->
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden">
+        <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] rounded-lg shadow-lg">
+        <button onclick="closeLightbox()" class="absolute top-5 right-5 text-white text-3xl bg-gray-800 px-3 py-1 rounded-full hover:bg-gray-600">&times;</button>
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+        function filterImages(category, event) {
+            const images = document.querySelectorAll('.gallery-item');
+            images.forEach(img => {
+                img.style.display = (category === 'all' || img.dataset.category === category) ? 'block' : 'none';
+                if (img.style.display === 'block') {
+                    img.classList.remove('fade-in');
+                    void img.offsetWidth; // restart animation
+                    img.classList.add('fade-in');
+                }
+            });
+
+            // Highlight active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-rose-500', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            event.target.classList.add('bg-rose-500', 'text-white');
+        }
+
+        // Initial fade-in
+        window.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.gallery-item');
+            images.forEach((img, index) => setTimeout(() => img.classList.add('fade-in'), index * 100));
+        });
+    </script>
+</body>
+</html>

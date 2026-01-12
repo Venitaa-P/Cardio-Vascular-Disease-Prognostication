@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="Stylesheet" href="static/main.css">
+
+    <style>
+        body {
+            background-image: url('static/29135.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .form-control,
+        .btn {
+            border-radius: 0.5rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+      
+     <nav>
+    <ul>
+        {% if session.user %}
+            <li><a href="/main">Home</a></li>
+            <li><a href="/chatbot">predict and AI Advisor</a></li>   <!-- Add this line -->
+            <li><a href="/about">About</a></li>
+            
+            <li><a href="/logout">Logout</a></li>
+        {% else %}
+            <li><a href="/signin">Sign In</a></li>
+        {% endif %}
+    </ul>
+</nav>
+      </header>
+    <div class="overlay">
+        
+            <center><h1 class="display-4 fw-bold">About Our Project</h1></center>
+        
+
+        <main class="container">
+            <section class="mb-5">
+                <h2 class="h4">Who We Are</h2>
+                <p>Welcome to our project, CARDIOVASCULAR DISEASE PROGNOSTICATION ! We are dedicated to providing innovative solutions to real-world problems.</p>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h4">Our Mission</h2>
+                <p style="text-align: justify;">Our mission is to develop an intelligent, reliable, and accessible system for the early prediction of heart disease. By leveraging advanced machine learning algorithms and clinically relevant data, we aim to assist individuals and healthcare providers in identifying potential heart conditions before they become critical.
+
+                    We are committed to enhancing awareness, enabling proactive health decisions, and reducing the risks associated with late diagnosis. Through user-friendly interfaces and insightful visualizations, our goal is to make heart health monitoring more efficient, personalized, and impactful for everyone—regardless of medical background.</p>
+            </section>
+            <b>Feel free to reach out to us with any questions or feedback. We are committed to providing timely first-aid guidance and prompt doctor recommendations to support your well-being.</b>
+            <br>
+            <br>
+            <section class="mb-5">
+                <h2 class="h4">Contact Us</h2>
+                <form onsubmit="handleSubmit(event)">
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Your Message</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Our Project. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevents the form from actually submitting
+            alert('Thank you for contacting us! We will get back to you soon.');
+            // Optionally reset form
+            event.target.reset();
+        }
+    </script>
+    
+</body>
+</html>
